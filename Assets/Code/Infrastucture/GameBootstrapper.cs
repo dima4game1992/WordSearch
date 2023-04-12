@@ -1,18 +1,19 @@
-﻿using Zenject;
+﻿using System.Collections.Generic;
+using Zenject;
 
 namespace WordSearch
 {
-    public class GameBootstrapper : IInitializable
+    public sealed class GameBootstrapper : IInitializable
     {
         private readonly Game _game;
         private readonly GameStatesProvider _gameStatesProvider;
-        private readonly ISceneLoader _sceneLoader;
+        private readonly IEnumerable<IExitableState> _states;
 
-        public GameBootstrapper(Game game, GameStatesProvider gameStatesProvider, ISceneLoader sceneLoader)
+        public GameBootstrapper(Game game, GameStatesProvider gameStatesProvider, IEnumerable<IExitableState> states)
         {
             _game = game;
             _gameStatesProvider = gameStatesProvider;
-            _sceneLoader = sceneLoader;
+            _states = states;
         }
 
         public void Initialize()
@@ -23,10 +24,8 @@ namespace WordSearch
 
         private void RegisterStates()
         {
-            _gameStatesProvider
-                .AddState(new BootstrapState(_game.GameStateMachine, _sceneLoader))
-                .AddState(new LoadLevelState(_game.GameStateMachine, _sceneLoader))
-                .AddState(new GameLoopState());
+            foreach (IExitableState state in _states) 
+                _gameStatesProvider.AddState(state);
         }
 
         private void EnterBootstrapState()

@@ -9,5 +9,12 @@ namespace WordSearch.AssetManagement
             var prefab = Resources.Load<GameObject>(path);
             return Object.Instantiate(prefab);
         }
+
+        public string LoadLevelsJson(string path)
+        {
+            return Resources
+                .Load<TextAsset>(path)
+                .text;
+        }
     }
 }

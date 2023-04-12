@@ -1,4 +1,5 @@
-﻿using WordSearch.AssetManagement;
+﻿using System.Collections.Generic;
+using WordSearch.AssetManagement;
 
 namespace WordSearch
 {
@@ -11,10 +12,22 @@ namespace WordSearch
             _assetsProvider = assetsProvider;
         }
 
-        public GridView CreateGridView()
+        public GridView CreateGridView(IEnumerable<RowView> rowViews)
         {
-            return _assetsProvider.Instantiate(AssetPath.GridPath)
+            return _assetsProvider.Instantiate(AssetPath.GridViewPath)
                 .GetComponent<GridView>();
+        }
+
+        public LetterView CreateLetterView(string letter)
+        {
+            return _assetsProvider.Instantiate(AssetPath.LetterViewPath)
+                .GetComponent<LetterView>();
+        }
+
+        public RowView CreateRowView(IEnumerable<LetterView> letters)
+        {
+            return _assetsProvider.Instantiate(AssetPath.RowViewPath)
+                .GetComponent<RowView>();
         }
     }
 }

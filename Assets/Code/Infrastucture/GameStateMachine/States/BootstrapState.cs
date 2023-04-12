@@ -17,7 +17,7 @@ namespace WordSearch
         public async Task Enter(CancellationToken token)
         {
             await _sceneLoader.LoadSceneAsync(Scene.Bootstrap, token);
-            _stateMachine.Enter<LoadLevelState, Scene>(Scene.Game);
+            _stateMachine.Enter<LoadSceneState, Scene>(Scene.Game);
         }
 
         public Task Exit(CancellationToken token) => Task.CompletedTask;
