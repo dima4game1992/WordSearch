@@ -4,14 +4,13 @@ namespace WordSearch
 {
     public class Game : IDisposable
     {
-        public Game()
+        public readonly GameStateMachine GameStateMachine;
+
+        public Game(GameStateMachine gameStateMachine)
         {
-            
+            GameStateMachine = gameStateMachine;
         }
 
-        public void Dispose()
-        {
-            
-        }
+        public void Dispose() => GameStateMachine?.DisposeAsync();
     }
 }
