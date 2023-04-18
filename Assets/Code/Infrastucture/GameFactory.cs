@@ -1,33 +1,35 @@
 ﻿using System.Collections.Generic;
-using WordSearch.AssetManagement;
+using UnityEngine;
+using WordSearch.UI.Grid;
 
 namespace WordSearch
 {
-    public class GameFactory : IGameFactory
+    public sealed class GameFactory : IGameFactory
     {
-        private readonly IAssetProvider _assetsProvider;
+        private readonly GridView.Factory _gridViewFactory;
+        private readonly RowView.Factory _rowViewFactory;
+        private readonly LetterView.Factory _letterViewFactory;
 
-        public GameFactory(IAssetProvider assetsProvider)
+        public GameFactory(GridView.Factory gridViewFactory, RowView.Factory rowViewFactory, LetterView.Factory letterViewFactory)
         {
-            _assetsProvider = assetsProvider;
+            _gridViewFactory = gridViewFactory;
+            _rowViewFactory = rowViewFactory;
+            _letterViewFactory = letterViewFactory;
         }
 
         public GridView CreateGridView(IEnumerable<RowView> rowViews)
         {
-            return _assetsProvider.Instantiate(AssetPath.GridViewPath)
-                .GetComponent<GridView>();
-        }
-
-        public LetterView CreateLetterView(string letter)
-        {
-            return _assetsProvider.Instantiate(AssetPath.LetterViewPath)
-                .GetComponent<LetterView>();
+            return _gridViewFactory.Create(rowViews);
         }
 
         public RowView CreateRowView(IEnumerable<LetterView> letters)
         {
-            return _assetsProvider.Instantiate(AssetPath.RowViewPath)
-                .GetComponent<RowView>();
+            return _rowViewFactory.Create(letters);
+        }
+
+        public LetterView CreateLetterView(string letter, Vector2Int letterPosition)
+        {
+            return _letterViewFactory.Create(letter, letterPosition);
         }
     }
 }

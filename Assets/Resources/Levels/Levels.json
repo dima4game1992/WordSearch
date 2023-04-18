@@ -15,13 +15,15 @@
         ["J", "U", "I", "C", "E", "", "", "", "", ""]
   ],
     "words": [
-      {"word": "CAT"},
-      {"word": "DOG"},
-      {"word": "FISH"},
-      {"word": "SHOE"},
-      {"word": "HORSE"},
-      {"word": "STAND"},
-      {"word": "JUICE"}
+      "CAT",
+      "DOG",
+      "EAT",
+      "GRAPES",
+      "FISH",
+      "SHOES",
+      "HORSE",
+      "STAND",
+      "JUICE"
     ],
     "incorrect_input_behavior": "shaking"
   },
@@ -40,11 +42,11 @@
         ["", "", "", "", "C", "H", "E", "R", "R", "Y"]
       ],
       "words": [        
-        {"word": "APPLE"},        
-        {"word": "BANANA"},        
-        {"word": "CHERRY"},        
-        {"word": "DATE"},        
-        {"word": "FIG"}      
+        "APPLE",        
+        "BANANA",        
+        "CHERRY",        
+        "DATE",        
+        "FIG"
       ],
       "incorrect_input_behavior": "sound"
     }

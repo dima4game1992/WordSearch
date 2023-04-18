@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using WordSearch.AssetManagement;
+using WordSearch.Data.Interfaces;
 
 namespace WordSearch.Data
 {

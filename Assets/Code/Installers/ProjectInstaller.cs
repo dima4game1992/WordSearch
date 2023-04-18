@@ -1,5 +1,6 @@
 ﻿using WordSearch.AssetManagement;
 using WordSearch.Data;
+using WordSearch.UI.Grid;
 using Zenject;
 
 namespace WordSearch
@@ -16,9 +17,8 @@ namespace WordSearch
             BindSceneLoader();
             BindLevelsLoader();
             BindLevelsProvider();
-            BindGameFactory();
+            BindCurrentLevelProvider();
             BindAssetProvider();
-            BindGridGenerator();
         }
 
         private void BindGame()
@@ -48,9 +48,9 @@ namespace WordSearch
         private void BindGameStates()
         {
             BindState<BootstrapState>();
-            BindState<LoadSceneState>();
             BindState<LoadLevelsState>();
-            BindState<LoadLevelState>();
+            BindState<LoadLastLevelState>();
+            BindState<LoadNextLevelState>();
             BindState<GameLoopState>();
 
             void BindState<TState>() where TState : class, IExitableState
@@ -86,6 +86,14 @@ namespace WordSearch
                 .NonLazy();
         }
 
+        private void BindCurrentLevelProvider()
+        {
+            Container
+                .BindInterfacesAndSelfTo<CurrentLevelProvider>()
+                .AsSingle()
+                .NonLazy();
+        }
+        
         private void BindLevelsProvider()
         {
             Container
@@ -94,26 +102,10 @@ namespace WordSearch
                 .NonLazy();
         }
 
-        private void BindGameFactory()
-        {
-            Container
-                .BindInterfacesTo<GameFactory>()
-                .AsSingle()
-                .NonLazy();
-        }
-
         private void BindAssetProvider()
         {
             Container
                 .BindInterfacesTo<AssetProvider>()
-                .AsSingle()
-                .NonLazy();
-        }
-
-        private void BindGridGenerator()
-        {
-            Container
-                .BindInterfacesTo<GridGenerator>()
                 .AsSingle()
                 .NonLazy();
         }

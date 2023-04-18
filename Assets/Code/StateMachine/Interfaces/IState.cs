@@ -10,7 +10,7 @@ namespace WordSearch
 
     public interface IPayloadedState<in TPayload> : IExitableState
     {
-        Task Enter(TPayload levelIndex, CancellationToken token);
+        Task Enter(TPayload payload, CancellationToken token);
     }
 
     public interface IExitableState

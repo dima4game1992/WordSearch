@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace WordSearch
 {
@@ -13,6 +14,10 @@ namespace WordSearch
                 Destroy(gameObject);
                 return;
             }
+            
+            var context = FindObjectOfType<RunnableContext>();
+            if (context == null)
+                DestroyImmediate(context);
 
             SceneManager.LoadScene(Scene.Bootstrap.ToString());
         }

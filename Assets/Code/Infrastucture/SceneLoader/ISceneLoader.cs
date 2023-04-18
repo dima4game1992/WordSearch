@@ -5,6 +5,6 @@ namespace WordSearch
 {
     public interface ISceneLoader
     {
-        Task LoadSceneAsync(Scene nextScene, CancellationToken token);
+        Task LoadSceneAsync(Scene nextScene, bool reloadScene = false, CancellationToken token = default);
     }
 }

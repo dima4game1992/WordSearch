@@ -2,11 +2,14 @@
 
 namespace WordSearch.AssetManagement
 {
-    public class AssetProvider : IAssetProvider
+    public sealed class AssetProvider : IAssetProvider
     {
+        public T GetPrefab<T>(string path) where T : Object
+            => Resources.Load<T>(path);
+
         public GameObject Instantiate(string path)
         {
-            var prefab = Resources.Load<GameObject>(path);
+            var prefab = GetPrefab<GameObject>(path);
             return Object.Instantiate(prefab);
         }
 

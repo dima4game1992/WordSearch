@@ -2,12 +2,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using WordSearch.Data;
+using WordSearch.Data.Interfaces;
 
 namespace WordSearch
 {
     public sealed class LoadLevelsState : IState
     {
-        private const string LevelIndex = "LevelIndex";
         private readonly GameStateMachine _stateMachine;
         private readonly ILevelsLoader _levelsLoader;
         private readonly LevelsProvider _levelsProvider;
@@ -21,8 +21,8 @@ namespace WordSearch
 
         public async Task Enter(CancellationToken token)
         {
-            await RegisterLevels();
-            _stateMachine.Enter<LoadLevelState, int>(LastLevelIndex);
+            await LoadLevels();
+            _stateMachine.Enter<LoadLastLevelState>();
         }
 
         public Task Exit(CancellationToken token)
@@ -30,7 +30,7 @@ namespace WordSearch
             return Task.CompletedTask;
         }
 
-        private async Task RegisterLevels()
+        private async Task LoadLevels()
         {
             LevelsData levelsData = await _levelsLoader.LoadLevels();
 #if UNITY_EDITOR
@@ -40,14 +40,6 @@ namespace WordSearch
             _levelsProvider.LevelsData = levelsData;
         }
 
-        private static int LastLevelIndex
-        {
-            get => PlayerPrefs.GetInt(LevelIndex, 0);
-            set
-            {
-                PlayerPrefs.SetInt(LevelIndex, value);
-                PlayerPrefs.Save();
-            }
-        }
+
     }
 }
